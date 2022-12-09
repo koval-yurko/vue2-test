@@ -1,8 +1,14 @@
 <template>
   <div class="controls">
-    <my-button link @click.prevent="onPrevClick">Go Back</my-button>
+    <span>
+      <my-button v-if="activeIndex !== 0" link @click.prevent="onPrevClick"
+        >Go Back</my-button
+      >
+    </span>
 
-    <my-button @click.prevent="onNextClick" class="next">Next Step</my-button>
+    <my-button @click.prevent="onNextClick" class="next">
+      <span>{{ activeIndex === finalIndex ? "Confirm" : "Next Step" }}</span>
+    </my-button>
   </div>
 </template>
 
@@ -11,7 +17,12 @@ import { defineComponent } from "vue";
 import { MyButton } from "@/components/form";
 import type { PropType } from "vue";
 
-export default defineComponent({
+type MyControlsProps = {
+  activeIndex: number;
+  finalIndex: number;
+};
+
+export default defineComponent<MyControlsProps, MyControlsProps>({
   name: "MyControls",
   components: { MyButton },
   props: {
@@ -19,6 +30,10 @@ export default defineComponent({
       type: Number as PropType<number>,
       required: true,
       default: 1,
+    },
+    finalIndex: {
+      type: Number as PropType<number>,
+      required: true,
     },
   },
   emits: ["prev", "next"],

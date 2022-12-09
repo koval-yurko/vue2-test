@@ -49,7 +49,7 @@ export default defineComponent<MyButtonProps>({
 }
 
 .button.link {
-  padding: 0;
+  padding: 3px 0;
   background: none;
   color: var(--botton-link-color);
 }

@@ -1,5 +1,8 @@
 <template>
-  <div class="step" v-if="isActive">Summary step</div>
+  <div class="form-step step" v-if="isActive">
+    <h2 class="head">Finishing up</h2>
+    <p>Double-check everything looks OK before confirming.</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -26,17 +29,10 @@ export default defineComponent<MyStepProps>({
   },
   methods: {
     isValid() {
-      console.log("child");
       return false;
     },
   },
 });
 </script>
 
-<style scoped>
-.step {
-}
-.step.active {
-  background: #ccc;
-}
-</style>
+<style scoped></style>

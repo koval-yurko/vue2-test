@@ -5,13 +5,19 @@
     <div class="content">
       <div class="wrapper">
         <my-multi-form
+          class="form"
           ref="multiForm"
           :active-index="activeIndex"
           :form-data="formData"
           @submit="next"
         />
 
-        <my-controls :active-index="activeIndex" @prev="prev" @next="next" />
+        <my-controls
+          :active-index="activeIndex"
+          :final-index="3"
+          @prev="prev"
+          @next="next"
+        />
       </div>
     </div>
   </div>
@@ -22,6 +28,7 @@ import { defineComponent } from "vue";
 import { MyStepsNav } from "@/components/MyStepsNav";
 import { MyMultiForm } from "@/components/MyMultiForm";
 import { MyControls } from "@/components/MyControls";
+import { plans } from "@/constants";
 import { BILLING_TIME_MONTHLY } from "@/types";
 import type { FormData, Plan, AddOn } from "@/types";
 
@@ -43,11 +50,11 @@ export default defineComponent<AppProps>({
   },
   data() {
     return {
-      activeIndex: 0,
+      activeIndex: 3,
       formData: {
         name: "",
         email: "",
-        plan: "",
+        plan: plans[0].id,
         billingTime: BILLING_TIME_MONTHLY,
         addons: [],
       },
@@ -60,7 +67,6 @@ export default defineComponent<AppProps>({
         return;
       }
       const isValid = multiForm.isActiveStepValid();
-      console.log("isValid", isValid);
       if (isValid) {
         const updates = multiForm.getActiveStepUpdates();
         if (updates) {
@@ -73,6 +79,10 @@ export default defineComponent<AppProps>({
       }
     },
     prev() {
+      const multiForm = this.$refs.multiForm as unknown as typeof MyMultiForm;
+      if (!multiForm) {
+        return;
+      }
       if (this.activeIndex === FIRST_STEP) {
         return;
       }
@@ -101,5 +111,9 @@ export default defineComponent<AppProps>({
 .content {
   width: 620px;
   flex-shrink: 0;
+}
+
+.form {
+  min-height: 490px;
 }
 </style>

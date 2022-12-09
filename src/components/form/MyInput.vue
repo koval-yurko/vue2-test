@@ -4,7 +4,18 @@
       <label :for="forId" v-if="label" class="label">{{ label }}</label>
       <span v-if="error" class="error">{{ error }}</span>
     </div>
-    <input :id="forId" v-bind="$props" v-on="$listeners" class="input" />
+    <input
+      :id="forId"
+      v-bind="$props"
+      v-on="$listeners"
+      :value="value"
+      @input="
+        (newValue) => {
+          value = newValue.target.value;
+        }
+      "
+      class="input"
+    />
   </div>
 </template>
 
@@ -16,9 +27,10 @@ type MyButtonProps = {
   id?: boolean;
   label?: string;
   error?: string;
+  value: string;
 };
 
-export default defineComponent<MyButtonProps>({
+export default defineComponent<MyButtonProps, MyButtonProps>({
   name: "MyInput",
   props: {
     id: {
@@ -34,9 +46,22 @@ export default defineComponent<MyButtonProps>({
       required: false,
     },
   },
+  data() {
+    return {
+      value: this.$attrs.value,
+    };
+  },
   computed: {
     forId() {
       return this.id || this.label;
+    },
+  },
+  watch: {
+    value() {
+      this.$emit("input", this.value);
+    },
+    "$attrs.value"() {
+      this.value = this.$attrs.value;
     },
   },
 });
@@ -85,8 +110,8 @@ export default defineComponent<MyButtonProps>({
   border-color: var(--my-c-primary-2);
 }
 .input:focus-visible {
-  outline: none;
   border-color: var(--my-c-primary-2);
+  outline: solid 1px var(--my-c-primary-2);
 }
 
 .field.has-error .input {

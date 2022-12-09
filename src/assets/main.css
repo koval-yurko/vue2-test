@@ -21,6 +21,10 @@ body {
   color: var(--my-c-primary-1);
 }
 
+.form {
+  padding-top: 30px;
+}
+
 h2 {
   margin: 0;
 }

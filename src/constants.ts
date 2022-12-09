@@ -48,8 +48,8 @@ export const plans: Plan[] = [
 export const addons: AddOn[] = [
   {
     id: "services",
-    title: "Online services",
-    body: "Access to multiple games",
+    title: "Online service",
+    body: "Access to multiplayer games",
     billing: {
       monthly: {
         price: 1,

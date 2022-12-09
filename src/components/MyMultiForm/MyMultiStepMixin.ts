@@ -18,7 +18,7 @@ export const MyMultiStepMixin = defineComponent<MyMultiStepMixinProps>({
       throw new Error('"isValid" should be defined for each step');
     },
     getUpdates() {
-      throw new Error('"getUpdates" should be defined for each step');
+      return undefined;
     },
   },
 });

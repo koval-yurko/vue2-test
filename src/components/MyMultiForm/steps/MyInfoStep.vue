@@ -91,12 +91,13 @@ export default defineComponent<MyStepProps, MyStepProps>({
     phone() {
       this.phoneError = "";
     },
+    formData() {
+      this.name = this.formData.name;
+      this.email = this.formData.email;
+      this.phone = this.formData.phone;
+    },
   },
 });
 </script>
 
-<style scoped>
-.form {
-  padding: 30px 0;
-}
-</style>
+<style scoped></style>
