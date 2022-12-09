@@ -5,13 +5,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent } from "vue";
 import type { PropType } from "vue";
 
 export default defineComponent({
   name: "MyStepper",
   props: {
-    activeStep: {
+    activeIndex: {
       type: Number as PropType<number>,
       required: true,
       default: 1,
@@ -20,11 +20,6 @@ export default defineComponent({
   provide() {
     return {
       $stepper: this,
-    };
-  },
-  data() {
-    return {
-      // activeStep: 1,
     };
   },
 });

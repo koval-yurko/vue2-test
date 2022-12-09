@@ -1,4 +1,4 @@
 import MyMultiForm from "./MyMultiForm.vue";
-import MyMultiStep from "./MyMultiStep.vue";
 
-export { MyMultiForm, MyMultiStep };
+export * from "./MyMultiStepMixin";
+export { MyMultiForm };

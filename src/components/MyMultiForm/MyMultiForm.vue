@@ -1,31 +1,81 @@
 <template>
-  <div class="form">
-    <slot></slot>
-  </div>
+  <form @submit.prevent="onSubmit">
+    <my-stepper :active-index="activeIndex">
+      <my-info-step :index="0" :form-data="formData" :ref="setSteps" />
+      <my-plan-step :index="1" :form-data="formData" :ref="setSteps" />
+      <my-addons-step :index="2" :form-data="formData" :ref="setSteps" />
+      <my-summary-step :index="3" :form-data="formData" :ref="setSteps" />
+    </my-stepper>
+    <button type="submit" v-show="false">Submit</button>
+  </form>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import type { PropType } from "vue";
+import { defineComponent } from "vue";
+import { MyStepper } from "@/components/MyStepper";
+import MyInfoStep from "./steps/MyInfoStep.vue";
+import MyPlanStep from "./steps/MyPlanStep.vue";
+import MyAddonsStep from "./steps/MyAddonsStep.vue";
+import MySummaryStep from "./steps/MySummaryStep.vue";
 
-export default defineComponent({
+import type { PropType } from "vue";
+import type { FormData, FormStep } from "@/types";
+
+type MyMultiFormProps = {
+  activeIndex: number;
+  formData: FormData;
+  steps: FormStep[];
+};
+
+export default defineComponent<MyMultiFormProps>({
   name: "MyMultiForm",
+  components: {
+    MyStepper,
+    MyInfoStep,
+    MyPlanStep,
+    MyAddonsStep,
+    MySummaryStep,
+  },
   props: {
-    activeStep: {
+    activeIndex: {
       type: Number as PropType<number>,
       required: true,
-      default: 1,
+      default: 0,
     },
-  },
-  provide() {
-    return {
-      $multiForm: this,
-    };
+    formData: {
+      type: Object as PropType<FormData>,
+      required: true,
+    },
   },
   data() {
     return {
-      // activeStep: 1,
+      steps: [],
     };
+  },
+  emits: ["submit"],
+  methods: {
+    setSteps(step: FormStep) {
+      if (step) {
+        this.steps[step.index] = step;
+      }
+    },
+    isActiveStepValid() {
+      const step = this.steps[this.activeIndex];
+      if (!step) {
+        return false;
+      }
+      return step.isValid();
+    },
+    getActiveStepUpdates() {
+      const step = this.steps[this.activeIndex];
+      if (!step) {
+        return undefined;
+      }
+      return step.getUpdates();
+    },
+    onSubmit(event: Event) {
+      this.$emit("submit", event);
+    },
   },
 });
 </script>

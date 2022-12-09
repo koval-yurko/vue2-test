@@ -1,42 +1,105 @@
 <template>
-  <div id="app">
-    <my-stepper :active-step="activeStep">
-      <my-step :index="1">Step 1 title</my-step>
-      <my-step :index="2">Step 2 title</my-step>
-      <my-step :index="3">Step 3 title</my-step>
-    </my-stepper>
+  <div id="app" class="app">
+    <my-steps-nav class="nav" :active-index="activeIndex" />
 
-    <MyMultiForm :active-step="activeStep">
-      <MyMultiStep :index="1">Step 1 content</MyMultiStep>
-      <MyMultiStep :index="2">Step 2 content</MyMultiStep>
-      <MyMultiStep :index="3">Step 3 content</MyMultiStep>
-    </MyMultiForm>
+    <div class="content">
+      <div class="wrapper">
+        <my-multi-form
+          ref="multiForm"
+          :active-index="activeIndex"
+          :form-data="formData"
+          @submit="next"
+        />
 
-    <button @click="activeStep = activeStep - 1">Prev</button>
-    <button @click="activeStep = activeStep + 1">Next</button>
-
-    <span>activeStep- {{ activeStep }}, <MyIconAdvanced /></span>
+        <my-controls :active-index="activeIndex" @prev="prev" @next="next" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { MyStepper, MyStep } from "@/components/MyStepper";
-import { MyMultiForm, MyMultiStep } from "@/components/MyMultiForm";
-import { MyIconAdvanced } from "@/components/MyIcons";
+import { MyStepsNav } from "@/components/MyStepsNav";
+import { MyMultiForm } from "@/components/MyMultiForm";
+import { MyControls } from "@/components/MyControls";
+import { BILLING_TIME_MONTHLY } from "@/types";
+import type { FormData, Plan, AddOn } from "@/types";
 
-export default defineComponent({
-  components: { MyStepper, MyStep, MyMultiForm, MyMultiStep, MyIconAdvanced },
+const FIRST_STEP = 0;
+const LAST_STEP = 3;
+
+type AppProps = {
+  activeIndex: number;
+  formData: FormData;
+  plans: Plan[];
+  addons: AddOn[];
+};
+
+export default defineComponent<AppProps>({
+  components: {
+    MyStepsNav,
+    MyMultiForm,
+    MyControls,
+  },
   data() {
     return {
-      activeStep: 1,
+      activeIndex: 0,
+      formData: {
+        name: "",
+        email: "",
+        plan: "",
+        billingTime: BILLING_TIME_MONTHLY,
+        addons: [],
+      },
     };
+  },
+  methods: {
+    next() {
+      const multiForm = this.$refs.multiForm as unknown as typeof MyMultiForm;
+      if (!multiForm) {
+        return;
+      }
+      const isValid = multiForm.isActiveStepValid();
+      console.log("isValid", isValid);
+      if (isValid) {
+        const updates = multiForm.getActiveStepUpdates();
+        if (updates) {
+          this.formData = { ...this.formData, ...updates };
+        }
+        if (this.activeIndex === LAST_STEP) {
+          return;
+        }
+        this.activeIndex = this.activeIndex + 1;
+      }
+    },
+    prev() {
+      if (this.activeIndex === FIRST_STEP) {
+        return;
+      }
+      this.activeIndex = this.activeIndex - 1;
+    },
   },
 });
 </script>
 
 <style scoped>
-/*border-left: 1px solid var(--color-border);*/
-/*color: var(--color-text);*/
-/*padding-right: calc(var(--section-gap) / 2);*/
+.app {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--my-c-gray-1);
+}
+
+.nav {
+  width: 275px;
+  flex-shrink: 0;
+  margin-right: 15px;
+}
+
+.content {
+  width: 620px;
+  flex-shrink: 0;
+}
 </style>
