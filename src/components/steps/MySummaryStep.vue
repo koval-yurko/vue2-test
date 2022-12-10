@@ -138,7 +138,12 @@ export default defineComponent<MyStepProps>({
 </script>
 
 <style scoped>
+.step {
+  padding: 33px 0;
+}
+
 .form {
+  padding-top: 26px;
   font-size: 14px;
 }
 

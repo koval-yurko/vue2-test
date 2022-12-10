@@ -6,7 +6,7 @@
     </div>
     <input
       :id="forId"
-      v-bind="$props"
+      v-bind="$attrs"
       v-on="$listeners"
       :value="value"
       @input="

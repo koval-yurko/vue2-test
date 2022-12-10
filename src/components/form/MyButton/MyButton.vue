@@ -2,7 +2,7 @@
   <button
     class="button"
     :class="{ link: !!link }"
-    v-bind="$props"
+    v-bind="$attrs"
     v-on="$listeners"
   >
     <slot></slot>

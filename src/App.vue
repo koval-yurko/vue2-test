@@ -3,8 +3,15 @@
     <my-steps-nav class="nav" :active-index="activeIndex" />
 
     <div class="content">
-      <div class="wrapper" v-if="showForm">
+      <div class="wrapper">
+        <my-thank-you v-if="showThankYou">
+          Thanks for confirming your subscriptioon! We hope you have fun using
+          our platform. If you ever need support, please feel free to email us
+          at support@loremgaming.com.
+        </my-thank-you>
+
         <my-multi-form
+          v-if="!showThankYou"
           class="form"
           ref="multiForm"
           :active-index="activeIndex"
@@ -14,14 +21,13 @@
         />
 
         <my-controls
+          v-if="!showThankYou"
           :active-index="activeIndex"
           :final-index="3"
           @prev="prev"
           @next="next"
         />
       </div>
-
-      <div v-if="!showForm">Thank you</div>
     </div>
   </div>
 </template>
@@ -31,6 +37,7 @@ import { defineComponent } from "vue";
 import { MyStepsNav } from "@/components/MyStepsNav";
 import { MyMultiForm } from "@/components/MyMultiForm";
 import { MyControls } from "@/components/MyControls";
+import { MyThankYou } from "@/components/MyThankYou";
 import { plans, addons } from "@/constants";
 import { BILLING_TIME_MONTHLY } from "@/types";
 import type { FormData, Plan, AddOn } from "@/types";
@@ -40,7 +47,7 @@ const LAST_STEP = 3;
 
 type AppProps = {
   activeIndex: number;
-  showForm: boolean;
+  showThankYou: boolean;
   formData: FormData;
   plans: Plan[];
   addons: AddOn[];
@@ -51,11 +58,12 @@ export default defineComponent<AppProps>({
     MyStepsNav,
     MyMultiForm,
     MyControls,
+    MyThankYou,
   },
   data() {
     return {
-      activeIndex: 3,
-      showForm: true,
+      activeIndex: 0,
+      showThankYou: false,
       formData: {
         name: "",
         email: "",
@@ -78,7 +86,7 @@ export default defineComponent<AppProps>({
           this.formData = { ...this.formData, ...updates };
         }
         if (this.activeIndex === LAST_STEP) {
-          this.showForm = false;
+          this.showThankYou = true;
           return;
         }
         this.activeIndex = this.activeIndex + 1;
@@ -112,22 +120,30 @@ export default defineComponent<AppProps>({
 }
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
   width: 450px;
   margin: 0 auto;
 }
 
 .nav {
   width: 275px;
+  min-height: 570px;
   flex-shrink: 0;
   margin-right: 15px;
 }
 
 .content {
-  width: 620px;
+  display: flex;
+  align-items: stretch;
   flex-shrink: 0;
+  width: 620px;
 }
 
 .form {
-  min-height: 490px;
+  min-height: 465px;
+  flex-grow: 1;
 }
 </style>

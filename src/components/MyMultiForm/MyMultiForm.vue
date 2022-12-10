@@ -13,10 +13,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { MyStepper } from "@/components/MyStepper";
-import MyInfoStep from "./steps/MyInfoStep.vue";
-import MyPlanStep from "./steps/MyPlanStep.vue";
-import MyAddonsStep from "./steps/MyAddonsStep.vue";
-import MySummaryStep from "./steps/MySummaryStep.vue";
+import MyInfoStep from "@/components/steps/MyInfoStep.vue";
+import MyPlanStep from "@/components/steps/MyPlanStep.vue";
+import MyAddonsStep from "@/components/steps/MyAddonsStep.vue";
+import MySummaryStep from "@/components/steps/MySummaryStep.vue";
 
 import type { PropType } from "vue";
 import type { FormData, FormStep } from "@/types";

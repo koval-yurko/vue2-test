@@ -100,4 +100,12 @@ export default defineComponent<MyStepProps, MyStepProps>({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.step {
+  padding: 33px 0;
+}
+
+.form {
+  padding-top: 26px;
+}
+</style>

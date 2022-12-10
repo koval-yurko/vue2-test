@@ -22,18 +22,9 @@ export default defineComponent<MyRadioGroupProps, MyRadioGroupProps>({
     },
   },
   data() {
-    console.log(this);
     return {
       value: this.$attrs.value,
     };
-  },
-  created() {
-    this.$on("input", function (...args: any[]) {
-      console.log("on input", args);
-    });
-    this.$on("change", function (...args: any[]) {
-      console.log("on change", args);
-    });
   },
   provide() {
     return {

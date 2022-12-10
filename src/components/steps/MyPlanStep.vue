@@ -47,7 +47,7 @@
 import { defineComponent } from "vue";
 import { MyStepperMixin } from "@/components/MyStepper";
 import { MyMultiStepMixin } from "@/components/MyMultiForm";
-import { MyIconAdvanced, MyIconArcade, MyIconPro } from "@/components/MyIcons";
+import { MyIconAdvanced, MyIconArcade, MyIconPro } from "@/components/icons";
 import { MyRadioGroup, MyRadio } from "@/components/form/MyRadioGroup";
 import { BILLING_TIME_MONTHLY, BILLING_TIME_YEARLY } from "@/types";
 import { plans } from "@/constants";
@@ -113,6 +113,14 @@ export default defineComponent<MyStepProps, MyStepProps>({
 </script>
 
 <style scoped>
+.step {
+  padding: 33px 0;
+}
+
+.form {
+  padding-top: 26px;
+}
+
 .radio {
   display: flex;
   align-items: stretch;

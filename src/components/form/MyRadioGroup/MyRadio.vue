@@ -6,6 +6,8 @@
       type="radio"
       :id="forId"
       :name="name"
+      v-bind="$attrs"
+      v-on="$listeners"
       :checked="isChecked"
       @change="onChange"
     />
@@ -48,7 +50,6 @@ export default defineComponent<MyRadioProps, MyRadioProps>({
     },
   },
   data() {
-    console.log(this);
     return {
       value: this.$attrs.value,
     };

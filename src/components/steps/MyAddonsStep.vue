@@ -84,6 +84,14 @@ export default defineComponent<MyStepProps, MyStepProps>({
 </script>
 
 <style scoped>
+.step {
+  padding: 33px 0;
+}
+
+.form {
+  padding-top: 26px;
+}
+
 .checkbox-item {
   position: relative;
   margin-bottom: 18px;
