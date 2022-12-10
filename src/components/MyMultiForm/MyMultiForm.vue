@@ -52,6 +52,11 @@ export default defineComponent<MyMultiFormProps>({
       steps: [],
     };
   },
+  provide() {
+    return {
+      $multiForm: this,
+    };
+  },
   emits: ["submit"],
   methods: {
     setSteps(step: FormStep) {
@@ -72,6 +77,9 @@ export default defineComponent<MyMultiFormProps>({
         return undefined;
       }
       return step.getUpdates();
+    },
+    goto(index: number) {
+      this.$emit("goto", index);
     },
     onSubmit(event: Event) {
       this.$emit("submit", event);

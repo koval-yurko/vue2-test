@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { MyButton } from "@/components/form";
+import { MyButton } from "@/components/form/MyButton";
 import type { PropType } from "vue";
 
 type MyControlsProps = {

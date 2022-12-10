@@ -3,13 +3,14 @@
     <my-steps-nav class="nav" :active-index="activeIndex" />
 
     <div class="content">
-      <div class="wrapper">
+      <div class="wrapper" v-if="showForm">
         <my-multi-form
           class="form"
           ref="multiForm"
           :active-index="activeIndex"
           :form-data="formData"
           @submit="next"
+          @goto="goto"
         />
 
         <my-controls
@@ -19,6 +20,8 @@
           @next="next"
         />
       </div>
+
+      <div v-if="!showForm">Thank you</div>
     </div>
   </div>
 </template>
@@ -28,7 +31,7 @@ import { defineComponent } from "vue";
 import { MyStepsNav } from "@/components/MyStepsNav";
 import { MyMultiForm } from "@/components/MyMultiForm";
 import { MyControls } from "@/components/MyControls";
-import { plans } from "@/constants";
+import { plans, addons } from "@/constants";
 import { BILLING_TIME_MONTHLY } from "@/types";
 import type { FormData, Plan, AddOn } from "@/types";
 
@@ -37,6 +40,7 @@ const LAST_STEP = 3;
 
 type AppProps = {
   activeIndex: number;
+  showForm: boolean;
   formData: FormData;
   plans: Plan[];
   addons: AddOn[];
@@ -51,12 +55,13 @@ export default defineComponent<AppProps>({
   data() {
     return {
       activeIndex: 3,
+      showForm: true,
       formData: {
         name: "",
         email: "",
         plan: plans[0].id,
         billingTime: BILLING_TIME_MONTHLY,
-        addons: [],
+        addons: [addons[0].id, addons[1].id],
       },
     };
   },
@@ -73,6 +78,7 @@ export default defineComponent<AppProps>({
           this.formData = { ...this.formData, ...updates };
         }
         if (this.activeIndex === LAST_STEP) {
+          this.showForm = false;
           return;
         }
         this.activeIndex = this.activeIndex + 1;
@@ -88,6 +94,9 @@ export default defineComponent<AppProps>({
       }
       this.activeIndex = this.activeIndex - 1;
     },
+    goto(index: number) {
+      this.activeIndex = index;
+    },
   },
 });
 </script>
@@ -100,6 +109,11 @@ export default defineComponent<AppProps>({
   padding: 15px;
   border-radius: 15px;
   background: var(--my-c-gray-1);
+}
+
+.wrapper {
+  width: 450px;
+  margin: 0 auto;
 }
 
 .nav {

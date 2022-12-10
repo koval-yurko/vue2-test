@@ -1,0 +1,35 @@
+.plans-radio .my-radio {
+  position: relative;
+}
+
+.plans-radio .my-radio-input {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}
+
+.plans-radio .my-radio-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 11px 15px;
+  border: solid 1px var(--my-c-gray-4);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.plans-radio .my-radio-input:checked + .my-radio-label {
+  border-color: var(--my-c-primary-2);
+  background: var(--my-c-gray-2);
+}
+
+.plans-radio .my-radio-input + .my-radio-label:hover,
+.plans-radio .my-radio-input:focus + .my-radio-label {
+  border-color: var(--my-c-primary-2);
+}
+
+.plans-radio .my-radio-input:focus-visible + .my-radio-label {
+  border-color: var(--my-c-primary-2);
+  outline: solid 1px var(--my-c-primary-2);
+}

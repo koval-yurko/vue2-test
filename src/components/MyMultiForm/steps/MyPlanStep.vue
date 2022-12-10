@@ -4,31 +4,27 @@
     <p>You have the option of monthly or yearly billing.</p>
 
     <div class="form">
-      <div class="radio">
-        <div class="radio-item" v-for="planItem of plans" :key="planItem.id">
-          <input
-            type="radio"
-            name="plans"
-            :id="planItem.id"
-            :value="planItem.id"
-            v-model="plan"
-          />
-          <label :for="planItem.id">
-            <component class="icon" :is="planItem.icon"></component>
-            <span class="text">
-              <span class="title">{{ planItem.title }}</span>
-              <span v-if="isMonthlyTime"
-                >${{ planItem.billing.monthly.price }}/mo</span
-              >
-              <span v-if="isYearlyTime">
-                ${{ planItem.billing.yearly.price }}/yr
-                <br />
-                <small class="info">{{ planItem.billing.yearly.text }}</small>
-              </span>
+      <my-radio-group class="plans-radio radio" v-model="plan" name="plans">
+        <my-radio
+          class="radio-item"
+          v-for="planItem of plans"
+          :key="planItem.id"
+          :value="planItem.id"
+        >
+          <component class="icon" :is="planItem.icon"></component>
+          <span class="text">
+            <span class="title">{{ planItem.title }}</span>
+            <span v-if="isMonthlyTime"
+              >${{ planItem.billing.monthly.price }}/mo</span
+            >
+            <span v-if="isYearlyTime">
+              ${{ planItem.billing.yearly.price }}/yr
+              <br />
+              <small class="info">{{ planItem.billing.yearly.text }}</small>
             </span>
-          </label>
-        </div>
-      </div>
+          </span>
+        </my-radio>
+      </my-radio-group>
 
       <div class="checkbox-row">
         <span :class="{ active: isMonthlyTime }">Monthly</span>
@@ -37,7 +33,7 @@
             type="checkbox"
             id="time-checkbox"
             :checked="isYearlyTime"
-            @change="timeUpdate"
+            @change="onBillingTimeUpdate"
           />
           <label for="time-checkbox">select</label>
         </div>
@@ -52,6 +48,7 @@ import { defineComponent } from "vue";
 import { MyStepperMixin } from "@/components/MyStepper";
 import { MyMultiStepMixin } from "@/components/MyMultiForm";
 import { MyIconAdvanced, MyIconArcade, MyIconPro } from "@/components/MyIcons";
+import { MyRadioGroup, MyRadio } from "@/components/form/MyRadioGroup";
 import { BILLING_TIME_MONTHLY, BILLING_TIME_YEARLY } from "@/types";
 import { plans } from "@/constants";
 import type { MyStepperMixinProps } from "@/components/MyStepper";
@@ -68,7 +65,13 @@ type MyStepProps = FormStep &
 export default defineComponent<MyStepProps, MyStepProps>({
   name: "MyPlanStep",
   mixins: [MyStepperMixin, MyMultiStepMixin],
-  components: { MyIconAdvanced, MyIconArcade, MyIconPro },
+  components: {
+    MyIconAdvanced,
+    MyIconArcade,
+    MyIconPro,
+    MyRadioGroup,
+    MyRadio,
+  },
   props: {},
   data() {
     return {
@@ -87,7 +90,7 @@ export default defineComponent<MyStepProps, MyStepProps>({
         billingTime: this.billingTime,
       };
     },
-    timeUpdate(event: any) {
+    onBillingTimeUpdate(event: any) {
       const { checked } = event.target;
       this.billingTime = checked ? BILLING_TIME_YEARLY : BILLING_TIME_MONTHLY;
     },
@@ -116,11 +119,11 @@ export default defineComponent<MyStepProps, MyStepProps>({
   margin-bottom: 32px;
   min-height: 160px;
 }
+
 .radio-item {
   display: flex;
   width: 33.3%;
   margin: 0 8px;
-  position: relative;
 }
 .radio-item:first-child {
   margin-left: 0;
@@ -147,38 +150,6 @@ export default defineComponent<MyStepProps, MyStepProps>({
 .radio-item .info {
   font-size: 12px;
   color: var(--my-c-primary-1);
-}
-
-.radio-item input {
-  position: absolute;
-  top: 0;
-  opacity: 0;
-}
-
-.radio-item label {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  padding: 11px 15px;
-  border: solid 1px var(--my-c-gray-4);
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.radio-item input:checked + label {
-  border-color: var(--my-c-primary-2);
-  background: var(--my-c-gray-2);
-}
-
-.radio-item input + label:hover,
-.radio-item input:focus + label {
-  border-color: var(--my-c-primary-2);
-}
-
-.radio-item input:focus-visible + label {
-  border-color: var(--my-c-primary-2);
-  outline: solid 1px var(--my-c-primary-2);
 }
 
 .checkbox-row {
@@ -246,5 +217,13 @@ export default defineComponent<MyStepProps, MyStepProps>({
 
 .checkbox input:checked + label:after {
   transform: translateX(17px);
+}
+
+.checkbox input:focus {
+  outline: none;
+}
+.checkbox input:focus + label,
+.checkbox input:focus-visible + label {
+  outline: solid 2px var(--my-c-primary-2);
 }
 </style>

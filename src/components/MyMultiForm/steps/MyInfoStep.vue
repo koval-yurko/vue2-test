@@ -25,7 +25,7 @@
 import { defineComponent } from "vue";
 import { MyStepperMixin } from "@/components/MyStepper";
 import { MyMultiStepMixin } from "@/components/MyMultiForm/MyMultiStepMixin";
-import { MyInput } from "@/components/form";
+import { MyInput } from "@/components/form/MyInput";
 import type { MyStepperMixinProps } from "@/components/MyStepper";
 import type { MyMultiStepMixinProps } from "@/components/MyMultiForm";
 import type { FormStep } from "@/types";

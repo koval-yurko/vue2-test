@@ -4,6 +4,7 @@ import type { FormData } from "@/types";
 
 export type MyMultiStepMixinProps = {
   formData: FormData;
+  $multiForm: { goto(index: number): void };
 };
 
 export const MyMultiStepMixin = defineComponent<MyMultiStepMixinProps>({
@@ -11,6 +12,12 @@ export const MyMultiStepMixin = defineComponent<MyMultiStepMixinProps>({
     formData: {
       type: Object as PropType<FormData>,
       required: true,
+    },
+  },
+  inject: {
+    $multiForm: {
+      from: "$multiForm",
+      default: {},
     },
   },
   methods: {
