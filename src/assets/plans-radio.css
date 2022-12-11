@@ -33,3 +33,12 @@
   border-color: var(--my-c-primary-2);
   outline: solid 1px var(--my-c-primary-2);
 }
+
+@media (max-width: 800px) {
+  .plans-radio .my-radio-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}

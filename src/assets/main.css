@@ -4,7 +4,6 @@
 body {
   display: flex;
   place-items: center;
-  padding: 100px 0;
 }
 
 .head {
@@ -19,8 +18,4 @@ h2 {
 
 p {
   margin: 0 0 10px 0;
-}
-
-@media (min-width: 1024px) {
-
 }

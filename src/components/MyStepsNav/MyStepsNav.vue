@@ -1,9 +1,9 @@
 <template>
   <my-stepper :active-index="activeIndex" class="holder">
     <my-step :index="0">Your info</my-step>
-    <my-step :index="1">Step 2 title</my-step>
-    <my-step :index="2">Step 3 title</my-step>
-    <my-step :index="3">Step 3 title</my-step>
+    <my-step :index="1">Select plan</my-step>
+    <my-step :index="2">Add-ons</my-step>
+    <my-step :index="3">Summary</my-step>
   </my-stepper>
 </template>
 
@@ -32,11 +32,23 @@ export default defineComponent<MyStepProps>({
 
 <style scoped>
 .holder {
-  padding: 11px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 35px 15px;
   box-sizing: border-box;
   border-radius: 10px;
   background-color: var(--my-c-primary-2);
   background-image: url("@/assets/bg-sidebar-desktop.svg");
   background-size: cover;
+}
+
+@media (max-width: 800px) {
+  .holder {
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 100px;
+    border-radius: 0;
+    background-image: url("@/assets/bg-sidebar-mobile.svg");
+  }
 }
 </style>

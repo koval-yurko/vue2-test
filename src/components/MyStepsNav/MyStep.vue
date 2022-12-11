@@ -1,7 +1,7 @@
 <template>
   <div class="step" :class="{ active: isActive }">
     <div class="number">{{ index + 1 }}</div>
-    <div>
+    <div class="details">
       <div class="label">Step {{ index + 1 }}</div>
       <div class="title"><slot></slot></div>
     </div>
@@ -20,7 +20,6 @@ type MyStepProps = {
 export default defineComponent<MyStepProps>({
   name: "MyStep",
   mixins: [MyStepperMixin],
-  props: {},
   data() {
     return {
       // clonedName: this.name,
@@ -33,7 +32,7 @@ export default defineComponent<MyStepProps>({
 .step {
   display: flex;
   align-items: center;
-  margin: 24px 0;
+  margin-bottom: 24px;
   color: var(--my-c-gray-1);
 }
 
@@ -66,5 +65,14 @@ export default defineComponent<MyStepProps>({
 .step.active .number {
   background: var(--my-c-primary-4);
   color: var(--my-c-primary-2);
+}
+
+@media (max-width: 800px) {
+  .step {
+    margin-bottom: 0;
+  }
+  .details {
+    display: none;
+  }
 }
 </style>

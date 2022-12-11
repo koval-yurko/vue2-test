@@ -108,4 +108,10 @@ export default defineComponent<MyStepProps, MyStepProps>({
 .form {
   padding-top: 26px;
 }
+
+@media (max-width: 800px) {
+  .step {
+    padding: 10px 0;
+  }
+}
 </style>

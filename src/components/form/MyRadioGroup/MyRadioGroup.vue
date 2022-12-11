@@ -36,7 +36,6 @@ export default defineComponent<MyRadioGroupProps, MyRadioGroupProps>({
       this.value = value;
     },
   },
-  computed: {},
   watch: {
     value() {
       this.$emit("input", this.value);

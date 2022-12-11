@@ -52,4 +52,10 @@ export default defineComponent<MyThankYouProps, MyThankYouProps>({
 .text {
   text-align: center;
 }
+
+@media (max-width: 800px) {
+  .holder {
+    min-height: 400px;
+  }
+}
 </style>

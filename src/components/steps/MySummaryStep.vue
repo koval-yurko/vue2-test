@@ -191,4 +191,10 @@ export default defineComponent<MyStepProps>({
 .link:hover {
   color: var(--my-c-primary-2);
 }
+
+@media (max-width: 800px) {
+  .step {
+    padding: 10px 0;
+  }
+}
 </style>

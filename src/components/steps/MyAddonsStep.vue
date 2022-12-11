@@ -145,4 +145,10 @@ export default defineComponent<MyStepProps, MyStepProps>({
 .checkbox-item .price {
   color: var(--my-c-primary-2);
 }
+
+@media (max-width: 800px) {
+  .step {
+    padding: 10px 0;
+  }
+}
 </style>

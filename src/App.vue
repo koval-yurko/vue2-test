@@ -22,6 +22,7 @@
 
         <my-controls
           v-if="!showThankYou"
+          class="controls"
           :active-index="activeIndex"
           :final-index="3"
           @prev="prev"
@@ -112,8 +113,10 @@ export default defineComponent<AppProps>({
 <style scoped>
 .app {
   display: flex;
-  justify-content: center;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 910px;
+  justify-content: space-between;
+  margin: 100px auto 0;
   padding: 15px;
   border-radius: 15px;
   background: var(--my-c-gray-1);
@@ -124,7 +127,8 @@ export default defineComponent<AppProps>({
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  width: 450px;
+  width: 100%;
+  max-width: 450px;
   margin: 0 auto;
 }
 
@@ -138,12 +142,51 @@ export default defineComponent<AppProps>({
 .content {
   display: flex;
   align-items: stretch;
-  flex-shrink: 0;
-  width: 620px;
+  flex-grow: 1;
 }
 
 .form {
   min-height: 465px;
   flex-grow: 1;
+}
+
+.controls {
+}
+
+@media (max-width: 800px) {
+  .app {
+    flex-direction: column;
+    margin-top: 0;
+    padding: 0;
+    background: none;
+  }
+
+  .nav {
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+  }
+
+  .content {
+    margin: -70px 15px 100px;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--my-c-gray-1);
+  }
+
+  .form {
+    min-height: 0;
+  }
+
+  .controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
+    background: var(--my-c-gray-1);
+  }
 }
 </style>

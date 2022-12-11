@@ -166,6 +166,7 @@ export default defineComponent<MyStepProps, MyStepProps>({
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  box-sizing: border-box;
   border-radius: 8px;
   background: var(--my-c-gray-2);
 }
@@ -233,5 +234,24 @@ export default defineComponent<MyStepProps, MyStepProps>({
 .checkbox input:focus + label,
 .checkbox input:focus-visible + label {
   outline: solid 2px var(--my-c-primary-2);
+}
+
+@media (max-width: 800px) {
+  .step {
+    padding: 10px 0;
+  }
+
+  .radio {
+    flex-direction: column;
+  }
+
+  .radio-item {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+
+  .radio-item .icon {
+    margin: 0 20px 0 5px;
+  }
 }
 </style>
