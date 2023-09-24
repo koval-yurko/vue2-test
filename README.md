@@ -16,8 +16,5 @@ yarn dev
 dev build
 ```
 
-### Open questions
-* Full TypeScript support (props, mixins, events, extends)
-* Children manipulation in Parent (iteration & count)
-* Global CSS for customization components
-* Props & Ref delegate to Children
+### Demo
+https://koval-yurko.github.io/vue2-test/index.html#/
